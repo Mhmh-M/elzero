@@ -11,49 +11,24 @@
 // })
 
 let scrollUpBtn = document.querySelector(".scroll-up");
+let ourSkills = document.querySelector("#Skills");
+let spans_Skills = document.querySelectorAll(".the-progress span");
+let numbers = document.querySelectorAll(".stats .number");
+let numSection = document.querySelector(".stats");
+let started = false;
 
 window.onscroll = function () {
 
     if (window.pageYOffset >= 1200) {
         scrollUpBtn.style.display = "block";
     }
-}
-window.onscroll = function () {
-
-    console.log(this.pageYOffset);
-
-}
-
-scrollUpBtn.onclick = function () {
-
-    window.scrollTo(0, 0);
-}
-
-let ourSkills = document.querySelector(".our-skills");
-
-let spans = document.querySelectorAll(".the-progress span");
-
-window.onscroll = function () {
-
     if (window.scrollY >= ourSkills.offsetTop - 300) {
 
-        spans.forEach(s => {
+        spans_Skills.forEach(s => {
 
             s.style.width = s.dataset.width
         })
     }
-}
-//
-//
-
-let numbers = document.querySelectorAll(".stats .number");
-
-let numSection = document.querySelector(".stats");
-
-let started = false;
-
-window.onscroll = function () {
-
     if (window.scrollY >= numSection.offsetTop - 400) {
 
         if (!started) {
@@ -64,6 +39,18 @@ window.onscroll = function () {
 
     }
 }
+
+scrollUpBtn.onclick = function () {
+
+    window.scrollTo(0, 0);
+}
+
+
+//
+//
+
+
+
 
 
 function startCount(ele) {
@@ -82,7 +69,7 @@ function startCount(ele) {
 // 
 // 
 
-let countDownDate = new Date("Apr 27, 2022 23:59:59").getTime();
+let countDownDate = new Date("Apr 27, 2023 23:59:59").getTime();
 
 let counter = setInterval(() => {
 
@@ -99,12 +86,18 @@ let counter = setInterval(() => {
 
     let seconds = Math.floor((dateDiff % (1000 * 60)) / 1000)
 
+    if (dateDiff < 0) {
+        days = 00;
+        hours = 00;
+        minutes = 00;
+        seconds = 00;
+    }
+
     document.querySelector(".events .unit .days").innerHTML = days;
     document.querySelector(".events .unit .hours").innerHTML = hours;
     document.querySelector(".events .unit .minutes").innerHTML = minutes;
     document.querySelector(".events .unit .seconds").innerHTML = seconds < 10 ? `0${seconds}` : seconds;
-
     if (dateDiff < 0) {
-        clearInterval();
+        clearInterval(counter);
     }
 }, 1000);
